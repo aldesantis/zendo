@@ -1,0 +1,15 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+
+# logs
+*.log
+npm-debug.log*
+
+# macOS-specific files
+.DS_Store
+
+# asdf tool versions (un-ignore; overrides global gitignore)
+!.tool-versions

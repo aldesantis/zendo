@@ -1,0 +1,65 @@
+{
+  "name": "zendo",
+  "version": "0.1.0",
+  "description": "A source-agnostic content pipeline engine for Astro digital gardens.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Alessandro Desantis",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aldesantis/zendo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/aldesantis/zendo/issues"
+  },
+  "homepage": "https://github.com/aldesantis/zendo#readme",
+  "keywords": ["astro", "digital-garden", "content-pipeline", "notion", "wikilinks"],
+  "bin": {
+    "zendo": "./src/cli/bin.ts"
+  },
+  "exports": {
+    ".": "./src/config.ts",
+    "./config": "./src/config.ts",
+    "./sources": "./src/sources/index.ts",
+    "./transformers": "./src/transformers/index.ts",
+    "./cli": "./src/cli/index.ts",
+    "./remark": "./src/remark/index.mjs",
+    "./astro": "./src/astro/index.ts",
+    "./astro/actions": "./src/astro/search.ts"
+  },
+  "files": ["src", "README.md"],
+  "dependencies": {
+    "chalk": "^5.6.2",
+    "ci-info": "^4.4.0",
+    "commander": "^15.0.0",
+    "emoji-regex": "^10.6.0",
+    "fs-extra": "^11.3.5",
+    "glob": "^13.0.6",
+    "gray-matter": "^4.0.3",
+    "mdast-util-to-string": "^4.0.0",
+    "ora": "^9.4.1",
+    "reading-time": "^1.5.0",
+    "slugify": "^1.6.9",
+    "unist-util-visit": "^5.1.0"
+  },
+  "peerDependencies": {
+    "@notionhq/client": ">=5",
+    "astro": ">=6",
+    "notion-to-md": ">=3"
+  },
+  "peerDependenciesMeta": {
+    "@notionhq/client": {
+      "optional": true
+    },
+    "notion-to-md": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@notionhq/client": "^5.22.0",
+    "@types/fs-extra": "^11.0.4",
+    "notion-to-md": "^3.1.9",
+    "tsx": "^4.20.0",
+    "typescript": "^6.0.3"
+  }
+}
