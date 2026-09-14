@@ -1,6 +1,6 @@
 {
   "name": "zendo",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A source-agnostic content pipeline engine for Astro digital gardens.",
   "type": "module",
   "license": "MIT",
@@ -24,6 +24,7 @@
     "./transformers": "./src/transformers/index.ts",
     "./cli": "./src/cli/index.ts",
     "./remark": "./src/remark/index.mjs",
+    "./satteri": "./src/satteri/index.mjs",
     "./astro": "./src/astro/index.ts",
     "./astro/actions": "./src/astro/search.ts"
   },

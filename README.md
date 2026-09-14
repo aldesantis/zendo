@@ -32,7 +32,8 @@ Sources ──▶ Transformers ──▶ src/content/*.mdx ──▶ Astro
 | `zendo/sources`       | Node only   | `gitSource`, `notionSource`                    |
 | `zendo/transformers`  | Node only   | Built-in transformers + `applyTransformers`    |
 | `zendo/cli`           | Node only   | The commander program                          |
-| `zendo/remark`        | Node/Astro  | `remarkWikiLink`, `remarkWikiImage`, `remarkReadingTime` |
+| `zendo/satteri`       | Node/Astro  | `satteriWikiLink`, `satteriWikiImage`, `satteriReadingTime` (Astro 7+ default engine) |
+| `zendo/remark`        | Node/Astro  | `remarkWikiLink`, `remarkWikiImage`, `remarkReadingTime` (older `unified` engine) |
 | `zendo/astro`         | Astro only  | `createGarden`                                 |
 | `zendo/astro/actions` | Astro only  | `createSearchAction`                           |
 
@@ -109,18 +110,40 @@ export const buildUrl = config.buildUrl;
 export type { ZendoCollectionId, ZendoCollectionEntry, EntryLink } from "zendo/astro";
 ```
 
-**3. `astro.config.mjs`** — wire the remark plugins (inject the index + URL builder):
+**3. `astro.config.mjs`** — wire the Markdown plugins (inject the index + URL builder).
+
+Astro 7 ships Sätteri as its Markdown engine, so use `zendo/satteri`:
 
 ```js
+import { satteri } from "@astrojs/markdown-satteri";
 import index from "./src/data/index.json" with { type: "json" };
+import { satteriReadingTime, satteriWikiLink, satteriWikiImage } from "zendo/satteri";
+
+markdown: {
+  processor: satteri({
+    mdastPlugins: [
+      satteriReadingTime(),
+      satteriWikiLink({ index, buildUrl: ({ type, slug }) => `/${type}/${slug}` }),
+      satteriWikiImage({ assetsPath: "../assets" }),
+    ],
+  }),
+}
+```
+
+On the older `unified` engine (`@astrojs/markdown-remark`), use `zendo/remark` instead:
+
+```js
+import { unified } from "@astrojs/markdown-remark";
 import { remarkReadingTime, remarkWikiLink, remarkWikiImage } from "zendo/remark";
 
 markdown: {
-  remarkPlugins: [
-    remarkReadingTime,
-    [remarkWikiLink, { index, buildUrl: ({ type, slug }) => `/${type}/${slug}` }],
-    [remarkWikiImage, { assetsPath: "../assets" }],
-  ],
+  processor: unified({
+    remarkPlugins: [
+      remarkReadingTime,
+      [remarkWikiLink, { index, buildUrl: ({ type, slug }) => `/${type}/${slug}` }],
+      [remarkWikiImage, { assetsPath: "../assets" }],
+    ],
+  }),
 }
 ```
 
