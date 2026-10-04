@@ -1,6 +1,6 @@
 {
   "name": "zendo",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A source-agnostic content pipeline engine for Astro digital gardens.",
   "type": "module",
   "license": "MIT",
